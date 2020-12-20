@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Todo;
 use App\Form\TodoType;
+use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -15,28 +16,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class UdemyController extends AbstractController
 {
     /**
-     * @Route("/", name="udemy")
+     * @Route("/", name="index")
      */
     public function index(): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $todo = new Todo();
-        $todo->setName("Terzo Corso")
-            ->setPriority("bassa")
-            ->setStatus('on going')
-            ->setDateCreation(new \DateTime());
+        $todos =  $em->getRepository(Todo::class)->findAll();
 
-        $em->persist($todo);
-        $em->flush();
-
-        return new Response('ok');
+        return $this->render('udemy/index.html.twig', [
+            'todos' => $todos
+        ]);
     }
 
 
     /**
-     * @Route("/todo/{name}", name="todo")
+     * @Route("/add", name="add")
      */
-    public function todo(String $name, Request $request)
+    public function todo(Request $request)
     {
         /*$form = $this->createFormBuilder()
             ->add('username',TextType::class)
@@ -55,7 +51,6 @@ class UdemyController extends AbstractController
         }
 
         return $this->render('udemy/todo.html.twig', [
-            'name' => $name,
             'form' => $form->createView()
         ]);
     }

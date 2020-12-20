@@ -7,6 +7,21 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-4">
+                    <a href="{{ path('index') }}">Home</a>
+                </div>
+                <div class="col-12 col-lg-4">
+                    <input type="text" placeholder="Search">
+                </div>
+                <div class="col-12 col-lg-4">
+                    <a href="{{ path('add') }}"> + </a>
+                </div>
+            </div>
+        </div>
+    </header>
     <div class="container">
         <div class="row">
             <div class="col-12">
