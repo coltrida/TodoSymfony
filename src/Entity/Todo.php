@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TodoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TodoRepository::class)
@@ -18,6 +19,7 @@ class Todo
     private $id;
 
     /**
+     * @Assert\Email()
      * @ORM\Column(type="string", length=255)
      */
     private $name;
