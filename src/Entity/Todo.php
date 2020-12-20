@@ -19,7 +19,9 @@ class Todo
     private $id;
 
     /**
-     * @Assert\Email()
+     * @Assert\Email(
+     *     message="non è una mail valida {{ value }}"
+     * )
      * @ORM\Column(type="string", length=255)
      */
     private $name;
