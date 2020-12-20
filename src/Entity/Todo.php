@@ -41,6 +41,13 @@ class Todo
      */
     private $dateCreation;
 
+    /**
+     * @ORM\OneToOne(targetEntity=user::class, inversedBy="todo", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(options={"default":"0"})
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +97,18 @@ class Todo
     public function setDateCreation(?\DateTimeInterface $dateCreation): self
     {
         $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    public function getUser(): ?user
+    {
+        return $this->user;
+    }
+
+    public function setUser(user $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

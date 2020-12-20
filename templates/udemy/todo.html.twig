@@ -5,9 +5,10 @@
     {#{{ form(form) }}#}
 
     {{ form_start(form) }}
+    {{ form_errors(form.priority) }}
     <div class="row">
         <div class="col-6">
-            {{ form_label(form.priority, "Ins. Prior:") }}
+            {{ form_label(form.priority, 'Priority') }}
             {{ form_row(form.priority) }}
         </div>
         <div class="col-6">
