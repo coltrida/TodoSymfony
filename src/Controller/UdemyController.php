@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -35,7 +36,7 @@ class UdemyController extends AbstractController
     /**
      * @Route("/todo/{name}", name="todo")
      */
-    public function todo(String $name)
+    public function todo(String $name, Request $request)
     {
         /*$form = $this->createFormBuilder()
             ->add('username',TextType::class)
@@ -44,6 +45,12 @@ class UdemyController extends AbstractController
             ->getForm();*/
 
         $form = $this->createForm(TodoType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            echo 'inviata';
+        }
+
         return $this->render('udemy/todo.html.twig', [
             'name' => $name,
             'form' => $form->createView()
