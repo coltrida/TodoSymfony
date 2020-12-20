@@ -37,13 +37,13 @@ class UdemyController extends AbstractController
      */
     public function todo(String $name)
     {
-        $form = $this->createFormBuilder()
+        /*$form = $this->createFormBuilder()
             ->add('username',TextType::class)
             ->add('mail',EmailType::class)
             ->add('password', PasswordType::class)
-            ->getForm();
+            ->getForm();*/
 
-//        $form = $this->createForm(TodoType::class);
+        $form = $this->createForm(TodoType::class);
         return $this->render('udemy/todo.html.twig', [
             'name' => $name,
             'form' => $form->createView()

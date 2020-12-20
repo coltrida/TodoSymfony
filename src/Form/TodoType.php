@@ -15,7 +15,7 @@ class TodoType extends AbstractType
             ->add('name')
             ->add('priority')
             ->add('status')
-            ->add('dateCreation')
+            /*->add('dateCreation')*/
         ;
     }
 
