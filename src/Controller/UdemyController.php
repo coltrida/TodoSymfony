@@ -17,4 +17,13 @@ class UdemyController extends AbstractController
             'controller_name' => 'UdemyController',
         ]);
     }
+
+
+    /**
+     * @Route("/todo", name="todo")
+     */
+    public function todo()
+    {
+        return $this->render('udemy/todo.html.twig');
+    }
 }
