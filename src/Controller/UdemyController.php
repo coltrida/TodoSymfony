@@ -75,4 +75,16 @@ class UdemyController extends AbstractController
         }
         return new Response('tutti : ');
     }
+
+    /**
+     * @Route("/udemy/attrib_pers", name="todo_attr_pers")
+     */
+    public function getAttributePers()
+    {
+        $todo = $this->getDoctrine()->getRepository(Todo::class)->findByExampleField('ude');
+        for ($x=0; $x<count($todo); $x++){
+            echo $todo[$x]->getName();
+        }
+        return new Response('tutti : ');
+    }
 }
