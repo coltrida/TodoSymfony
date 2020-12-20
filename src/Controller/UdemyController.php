@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Todo;
+use App\Form\TodoType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,11 +32,15 @@ class UdemyController extends AbstractController
 
 
     /**
-     * @Route("/todo", name="todo")
+     * @Route("/todo/{name}", name="todo")
      */
-    public function todo()
+    public function todo(String $name)
     {
-        return $this->render('udemy/todo.html.twig');
+        $form = $this->createForm(TodoType::class);
+        return $this->render('udemy/todo.html.twig', [
+            'name' => $name,
+            'form' => $form->createView()
+        ]);
     }
 
     /**
