@@ -102,4 +102,19 @@ class UdemyController extends AbstractController
         $em->flush();
         return new Response('trovato : '.$id);
     }
+
+    /**
+     * @Route("/deletetodo/{id}", name="delete_todo")
+     */
+    public function deleteTodo($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $todo = $em->getRepository(Todo::class)->find($id);
+        if (!$todo){
+            throw $this->createNotFoundException('Non trovato id: '.$id);
+        }
+        $em->remove($todo);
+        $em->flush();
+        return new Response('eliminato : '.$id);
+    }
 }
