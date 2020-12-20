@@ -48,7 +48,10 @@ class UdemyController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
-            echo 'inviata';
+            $todoTmp = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($todoTmp);
+            $em->flush();
         }
 
         return $this->render('udemy/todo.html.twig', [
