@@ -49,4 +49,30 @@ class UdemyController extends AbstractController
         }
         return new Response('il nome è: '.$todo->getName());
     }
+
+    /**
+     * @Route("/udemy/all", name="todo_all")
+     */
+    public function getAll()
+    {
+        $todo = $this->getDoctrine()->getRepository(Todo::class)->findAll();
+        for ($x=0; $x<count($todo); $x++){
+            echo $todo[$x]->getName();
+        }
+        return new Response('tutti : ');
+    }
+
+    /**
+     * @Route("/udemy/attrib", name="todo_attr")
+     */
+    public function getAttribute()
+    {
+        $todo = $this->getDoctrine()->getRepository(Todo::class)->findBy(
+            ['name' => 'Corso Udemy']
+        );
+        for ($x=0; $x<count($todo); $x++){
+            echo $todo[$x]->getName();
+        }
+        return new Response('tutti : ');
+    }
 }
