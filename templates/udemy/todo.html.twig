@@ -7,10 +7,11 @@
     {{ form_start(form) }}
     <div class="row">
         <div class="col-6">
-            {{ form_row(form.name) }}
+            {{ form_label(form.priority, "Ins. Prior:") }}
+            {{ form_row(form.priority) }}
         </div>
         <div class="col-6">
-            {{ form_row(form.priority) }}
+            {{ form_row(form.name) }}
         </div>
         <div class="col-6">
             {{ form_row(form.status) }}
