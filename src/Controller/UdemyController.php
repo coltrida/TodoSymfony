@@ -16,8 +16,8 @@ class UdemyController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $todo = new Todo();
-        $todo->setName("Corso Udemy")
-            ->setPriority("alta")
+        $todo->setName("Terzo Corso")
+            ->setPriority("bassa")
             ->setStatus('on going')
             ->setDateCreation(new \DateTime());
 
@@ -36,5 +36,17 @@ class UdemyController extends AbstractController
     public function todo()
     {
         return $this->render('udemy/todo.html.twig');
+    }
+
+    /**
+     * @Route("/udemy/details", name="todo_details")
+     */
+    public function getDetails()
+    {
+        $todo = $this->getDoctrine()->getRepository(Todo::class)->find(1);
+        if (!$todo){
+            throw $this->createNotFoundException('Non trovato');
+        }
+        return new Response('il nome è: '.$todo->getName());
     }
 }
