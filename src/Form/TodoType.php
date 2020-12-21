@@ -17,8 +17,10 @@ class TodoType extends AbstractType
             ->add('name')
             ->add('priority', TextType::class, ['label' => false])
             ->add('status')
+            ->add('description')
+            ->add('dateCreation')
+            ->add('dateDue')
             ->add('Submit', SubmitType::class)
-            /*->add('dateCreation')*/
         ;
     }
 

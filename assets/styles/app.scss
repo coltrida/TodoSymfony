@@ -1,5 +1,35 @@
 body {
-  a{
-    background: purple;
+  background: #fafafa;
+  header{
+    background: #db4c3f;
+    a{
+      text-decoration: none;
+      color: #ffffff;
+      &:hover{
+        color: #565656;
+
+      }
+    }
   };
+  .wrapper {
+    background: #ffffff;
+    span.status{
+      display: inline-block;
+      border: 1px solid #cccccc;
+      border-radius: 50%;
+      background-color: #fff;
+      height: 15px;
+      width: 15px;
+      vertical-align: middle;
+      &.done{
+        background: green;
+        border: 1px solid green;
+      }
+    }
+    .description{
+      font-family: "Arial Narrow";
+      font-weight: 100;
+      opacity: .2;
+    }
+  }
 }

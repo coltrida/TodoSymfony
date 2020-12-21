@@ -1,5 +1,19 @@
 {% extends "base.html.twig" %}
 
+{% block title %} Todo App {% endblock %}
 {% block body %}
-    ciao
+    <div class="row">
+        {% for todo in todos %}
+            <div class="col-12 col-lg-8">
+                <span class="status {% if todo.status == 'pending' %} done {% endif %}"></span>{{ todo.name }}
+                <div class="description mt-2 mb-2" style="padding-left: 20px">
+                    {{ todo.description }}
+                </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <span>Date: {{ todo.dateCreation | date("m/d/Y") }}</span>
+            </div>
+
+        {% endfor %}
+    </div>
 {% endblock %}

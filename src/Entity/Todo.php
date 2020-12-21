@@ -19,9 +19,6 @@ class Todo
     private $id;
 
     /**
-     * @Assert\Email(
-     *     message="non è una mail valida {{ value }}"
-     * )
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -37,16 +34,22 @@ class Todo
     private $status;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime",options={"default":"1970-01-02"})
      */
     private $dateCreation;
 
     /**
-     * @ORM\OneToOne(targetEntity=user::class, inversedBy="todo", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     * @ORM\Column(options={"default":"0"})
+     * @ORM\Column(type="datetime",options={"default":"1970-01-02"})
      */
-    private $user;
+    private $dateDue;
+
+    /**
+     * @ORM\Column(type="string", length=255, options={"default":"prova"})
+     */
+    private $description;
+
+
+
 
     public function getId(): ?int
     {
@@ -101,7 +104,7 @@ class Todo
         return $this;
     }
 
-    public function getUser(): ?user
+/*    public function getUser(): ?user
     {
         return $this->user;
     }
@@ -111,5 +114,29 @@ class Todo
         $this->user = $user;
 
         return $this;
-    }
+    }*/
+
+public function getDateDue(): ?\DateTimeInterface
+{
+    return $this->dateDue;
+}
+
+public function setDateDue(\DateTimeInterface $dateDue): self
+{
+    $this->dateDue = $dateDue;
+
+    return $this;
+}
+
+public function getDescription(): ?string
+{
+    return $this->description;
+}
+
+public function setDescription(string $description): self
+{
+    $this->description = $description;
+
+    return $this;
+}
 }
