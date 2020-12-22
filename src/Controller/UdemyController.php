@@ -44,10 +44,18 @@ class UdemyController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
-            $todoTmp = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($todoTmp);
-            $em->flush();
+            try{
+                $todoTmp = $form->getData();
+                $em = $this->getDoctrine()->getManager();
+                $this->addFlash(
+                    'notice',
+                'your todo is recorded'
+                );
+                $em->persist($todoTmp);
+                $em->flush();
+            }catch (\Exception $exception){
+
+            }
         }
 
         return $this->render('udemy/todo.html.twig', [
