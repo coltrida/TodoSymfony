@@ -129,7 +129,7 @@ class UdemyController extends AbstractController
     }
 
     /**
-     * @Route("/deletetodo/{id}", name="delete_todo")
+     * @Route("/deletetodo/{id}", name="deletetodo")
      */
     public function deleteTodo($id)
     {
@@ -140,11 +140,18 @@ class UdemyController extends AbstractController
         }
         $em->remove($todo);
         $em->flush();
-        return new Response('eliminato : '.$id);
+        $this->addFlash(
+            'notice',
+            'todo deleted'
+        );
+        return $this->redirectToRoute('index');
     }
 
     /**
      * @Route("/todoedit/{id}", name="todoedit")
+     * @param Int $id
+     * @param Request $request
+     * @return Response
      */
     public function EditTodo(Int $id, Request $request)
     {
@@ -153,17 +160,19 @@ class UdemyController extends AbstractController
         $form = $this->createForm(TodoType::class);
         $form->setData($todo);
 
-        //$form->handleRequest($request);
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
             $todoTmp = $form->getData();
             $em = $this->getDoctrine()->getManager();
+            $this->addFlash(
+                'notice',
+                'your todo is modified'
+            );
             $em->persist($todoTmp);
             $em->flush();
         }
-        $name = 'davide';
         return $this->render('udemy/todo.html.twig', [
-            'name' => $name,
             'form' => $form->createView()
         ]);
     }

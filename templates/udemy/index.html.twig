@@ -5,6 +5,15 @@
     {% if todos | length == 0 %}
         No Todos for now
     {% else %}
+        <div class="row">
+            <div class="col-12">
+                {% for message in app.flashes('notice') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     <div class="row">
         <div class="accordion" id="accordionExample">
             {% for todo in todos %}
@@ -22,9 +31,9 @@
                         <span>Date: {{ todo.dateCreation | date("m/d/Y") }}</span>
                         <hr>
                         <ul class="nav" style="display: flex">
-                            <li ><a href="/edit/{{ todo.id }}">Edit</a></li>
+                            <li ><a href="{{ path('todoedit', {id: todo.id}) }}">Edit</a></li>
                             <li style="margin: 0 30px;"><a href="/edit/{{ todo.id }}">Close</a></li>
-                            <li><a href="/delete/{{ todo.id }}">Delete</a></li>
+                            <li><a href="{{ path('deletetodo', {id: todo.id}) }}">Delete</a></li>
                         </ul>
                     </div>
                 </div>
