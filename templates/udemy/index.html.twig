@@ -2,56 +2,35 @@
 
 {% block title %} Todo App {% endblock %}
 {% block body %}
+    {% if todos | length == 0 %}
+        No Todos for now
+    {% else %}
     <div class="row">
         <div class="accordion" id="accordionExample">
+            {% for todo in todos %}
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Accordion Item #1
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne{{ loop.index }}" aria-expanded="true" aria-controls="collapseOne{{ loop.index }}">
+                        <span class="status {% if todo.status == 'pending' %} done {% endif %}"></span>
+                        <span class="todoname">{{ todo.name }}</span>
                     </button>
                 </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div id="collapseOne{{ loop.index }}" class="accordion-collapse collapse {% if loop.first %} show {% endif %}" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        <strong>This is the first item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                        {{ todo.description }}
+                        <br>
+                        <span>Date: {{ todo.dateCreation | date("m/d/Y") }}</span>
+                        <hr>
+                        <ul class="nav" style="display: flex">
+                            <li ><a href="/edit/{{ todo.id }}">Edit</a></li>
+                            <li style="margin: 0 30px;"><a href="/edit/{{ todo.id }}">Close</a></li>
+                            <li><a href="/delete/{{ todo.id }}">Delete</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Accordion Item #2
-                    </button>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Accordion Item #3
-                    </button>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
-        {% for todo in todos %}
-            <div class="col-12 col-lg-8">
-                <span class="status {% if todo.status == 'pending' %} done {% endif %}"></span>{{ todo.name }}
-                <div class="description mt-2 mb-2" style="padding-left: 20px">
-                    {{ todo.description }}
-                </div>
-            </div>
-            <div class="col-12 col-lg-4">
-                <span>Date: {{ todo.dateCreation | date("m/d/Y") }}</span>
-            </div>
-
-        {% endfor %}
     </div>
+    {% endif %}
 {% endblock %}
